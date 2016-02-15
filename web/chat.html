@@ -5,7 +5,7 @@
     <title>WebSocket</title>
     <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
     <script type="text/javascript">
-        var webSocket = new WebSocket("ws://127.0.0.1:8888/websocket/chat");
+        var webSocket = new WebSocket("ws://192.168.0.107:8888/websocket/chat");
         var sendMsg = function () {
             var inputElement = document.getElementById("msg");
             webSocket.send(inputElement.value);
