@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+    <script type="text/javascript">
+        var webSocket = new WebSocket("ws://127.0.0.1:8888/websocket/chat");
+        var sendMsg = function () {
+            var inputElement = document.getElementById("msg");
+            webSocket.send(inputElement.value);
+            inputElement.value = "";
+        };
+
+        var send = function (event) {
+            if (event.keyCode == 13) { //Enter
+                sendMsg();
+            }
+        };
+
+        webSocket.onopen = function () {
+            webSocket.onmessage = function (event) {
+                var show = document.getElementById("show");
+                show.innerHTML += event.data + "<br/>";
+                show.scrollTop = show.scrollHeight;
+            };
+            document.getElementById("msg").onkeydown = send; //key board
+            document.getElementById("sendBn").onclick = sendMsg;
+        };
+
+        webSocket.onclose = function () {
+            document.getElementById("msg").onkeydown = null;
+            document.getElementById("sendBn").onclick = null;
+            console.log("WebSocket closed...");
+        };
+    </script>
+</head>
+<body>
+<div id="show" style="width: 600px;height: 240px;overflow-y: auto;border: 1px solid #333;"></div>
+<input type="text" size="80" id="msg" name="msg" placeholder="say something..."/>
+<input type="button" id="sendBn" name="sendBn" value="Send"/>
+
+</body>
+</html>
