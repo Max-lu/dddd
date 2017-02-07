@@ -1,6 +1,4 @@
-
-
-import com.sun.deploy.net.HttpRequest;
+package cn.maxlu.demo.websocket;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -46,7 +44,7 @@ public class ChatEndPoint {
     }
 
     @OnError
-    public void onError(Throwable t) throws Throwable{
+    public void onError(Throwable t) throws Throwable {
         System.out.println("WebSocket server error " + t);
     }
 
@@ -62,7 +60,7 @@ public class ChatEndPoint {
                 try {
                     client.session.close();
                 } catch (IOException e1) {
-
+                    e1.printStackTrace();
                 }
                 String message = String.format("[%s %s]", client.nickName, "has disconnected...");
                 broadcast(message);
@@ -78,16 +76,16 @@ public class ChatEndPoint {
         StringBuilder result = new StringBuilder(content.length + 50);
         for (int i = 0; i < content.length; i++) {
             switch (content[i]) {
-                case '<' :
+                case '<':
                     result.append("&lt;");
                     break;
-                case '>' :
+                case '>':
                     result.append("&gt;");
                     break;
-                case '&' :
+                case '&':
                     result.append("&amp;");
                     break;
-                case '"' :
+                case '"':
                     result.append("&quot;");
                     break;
                 default:
